@@ -98,9 +98,6 @@ src/
 The skeleton includes these example MCP tools:
 
 - `add` - Add two numbers (simple example)
-- `getDocumentation` - Search and retrieve specific documentation sections
-- `listDocumentationSections` - List all available documentation sections
-- `getGeneralDocumentation` - Get general usage documentation
 
 ## Customizing Your MCP Server
 
