@@ -1,5 +1,5 @@
 import Router from '@koa/router';
-import { DocumentationProvider } from './mcp-server';
+import { McpServer } from './mcp-server';
 import { McpProviderController } from './controllers/McpProviderController';
 
 // Simple console logger for demo purposes
@@ -19,21 +19,21 @@ router.use(async (ctx, next) => {
 });
 
 // Create controller with FastMCP server (using root path)
-const DocumentationProviderController = new McpProviderController(
-    DocumentationProvider,
+const McpController = new McpProviderController(
+    McpServer,
     '', // Root path - no prefix
     parseInt(process.env.MCP_PORT || '8081', 10) // Port for FastMCP HTTP streaming
 );
 
-logger.info(`Registering Documentation Provider at ${DocumentationProviderController.route}`);
+logger.info(`Registering MCP Server at ${McpController.route}`);
 router.use(
-    DocumentationProviderController.route,
-    DocumentationProviderController.router.routes(),
-    DocumentationProviderController.router.allowedMethods()
+    McpController.route,
+    McpController.router.routes(),
+    McpController.router.allowedMethods()
 );
 
 // Export the controller for use in index.ts
-export { DocumentationProviderController };
+export { McpController };
 
 // Log all registered routes
 logger.info('Registered routes:');

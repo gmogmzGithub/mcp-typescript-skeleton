@@ -6,7 +6,7 @@
  */
 
 import Koa from 'koa';
-import { router, DocumentationProviderController } from './router';
+import { router, McpController } from './router';
 import bodyParser from 'koa-bodyparser';
 import proxy = require('koa-proxies');
 
@@ -25,7 +25,7 @@ const main = async (): Promise<void> => {
 
         app.use(
             proxy('/mcp', () => ({
-                target: `http://127.0.0.1:${DocumentationProviderController.mcpPort}/mcp`,
+                target: `http://127.0.0.1:${McpController.mcpPort}/mcp`,
                 changeOrigin: true,
                 ws: true,
                 ignorePath: true,
@@ -44,7 +44,7 @@ const main = async (): Promise<void> => {
 
         // Start server with HTTP streaming on a separate port
         try {
-            await DocumentationProviderController.startFastMCPServer();
+            await McpController.startFastMCPServer();
         } catch (error) {
             logger.error(`Failed to start MCP server: ${error}`);
             // Continue without FastMCP server
